@@ -72,7 +72,7 @@ public class WorkingTimesService {
         return user;
     }
 
-    public String setArrival(int worklyCode, int worklyPassword) {
+    public String setArrival(int worklyCode, int worklyPassword, String imageLink) {
 
         Users user = checkWorklyCodeAndPass(worklyCode, worklyPassword);
 
@@ -86,6 +86,7 @@ public class WorkingTimesService {
             workingTime.setArrivalTime(LocalDateTime.now());
             workingTime.setCompanyId(user.getCompanyWorkingId());
             workingTime.setUserId(user);
+            workingTime.setArrivalImageLink(imageLink);
 
             workingTimesRepository.save(workingTime);
         }
@@ -97,7 +98,7 @@ public class WorkingTimesService {
         return "You Successfully Arrived. Your Arrival Time: " + workingTime.getArrivalTime();
     }
 
-    public String setExit(int worklyCode, int worklyPassword) {
+    public String setExit(int worklyCode, int worklyPassword, String imageLink) {
 
         Users user = checkWorklyCodeAndPass(worklyCode, worklyPassword);
 
@@ -108,6 +109,7 @@ public class WorkingTimesService {
         if (workingTime.getExitTime() == null) {
 
             workingTime.setExitTime(LocalDateTime.now());
+            workingTime.setExitImageLink(imageLink);
 
             workingTimesRepository.save(workingTime);
 
