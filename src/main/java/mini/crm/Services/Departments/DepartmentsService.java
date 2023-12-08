@@ -2,7 +2,9 @@ package mini.crm.Services.Departments;
 
 import lombok.RequiredArgsConstructor;
 import mini.crm.Models.Departments;
+import mini.crm.Models.Users;
 import mini.crm.Repositories.DepartmentsRepository;
+import mini.crm.Repositories.UsersRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import static mini.crm.Services.Authentication.LoginService.COMPANY;
 public class DepartmentsService {
 
     private final DepartmentsRepository departmentsRepository;
+    private final UsersRepository usersRepository;
 
     public List<Departments> allDepartments() {
 
@@ -58,8 +61,14 @@ public class DepartmentsService {
 
         Departments department = departmentsRepository.findByIdAndCompanyId(departmentId, COMPANY).orElseThrow(() -> new IllegalArgumentException("Department Not Found!"));
 
+        List<Users> usersList = usersRepository.findAllByCompanyWorkingIdAndDepartmentId(COMPANY, department);
+
+        usersList.forEach(user -> user.setDepartmentId(null));
+
+        usersRepository.saveAll(usersList);
+
         departmentsRepository.delete(department);
 
-        return "You Successfully Deleted" + department.getName();
+        return "You have successfully deleted department " + department.getName();
     }
 }

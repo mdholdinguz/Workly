@@ -1,6 +1,7 @@
 package mini.crm.Repositories;
 
 import mini.crm.Models.Companies;
+import mini.crm.Models.Departments;
 import mini.crm.Models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,6 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
     List<Users> findAllByCompanyWorkingId(Companies companyWorkingId);
 
     Users findByWorklyCodeAndCompanyWorkingId(Integer code, Companies companyId);
+
+    List<Users> findAllByCompanyWorkingIdAndDepartmentId(Companies companyWorkingId, Departments departmentId);
 }
