@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/departments")
 @RequiredArgsConstructor
+@CrossOrigin(maxAge = 3600)
 public class DepartmentsController {
 
     private final DepartmentsService departmentsService;

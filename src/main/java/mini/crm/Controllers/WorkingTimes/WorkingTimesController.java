@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @RestController
 @RequestMapping("/api/Working-Times")
 @RequiredArgsConstructor
+@CrossOrigin(maxAge = 3600)
 public class WorkingTimesController {
 
     private final WorkingTimesService workingTimesService;
